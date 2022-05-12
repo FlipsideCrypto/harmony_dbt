@@ -3,7 +3,7 @@
   persist_docs ={ "relation": true,
   "columns": true },
   unique_key = 'log_id',
-  cluster_by = ['block_timestamp::DATE']
+  cluster_by = ['block_timestamp::DATE'],
 ) }}
 
 
@@ -145,7 +145,8 @@ wp.symbol_In,
 wp.symbol_out,  
 wp.tx_to,
 wp.amount_in * pIn.price as amount_in_usd,
-wp.amount_out * pOut.price as amount_out_usd    
+wp.amount_out * pOut.price as amount_out_usd,
+wp.ingested_at    
 from swap_without_prices wp
 left join Harmony_prices pIn
     on    lower(token_In) = lower(pIn.harmony_address)
