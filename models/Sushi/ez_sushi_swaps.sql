@@ -4,7 +4,6 @@
   "columns": true },
   unique_key = 'log_id',
   cluster_by = ['block_timestamp::DATE'],
-  copy_grants = True
 ) }}
 
 
