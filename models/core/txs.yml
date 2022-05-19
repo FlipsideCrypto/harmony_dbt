@@ -6,7 +6,12 @@ models:
   - name: txs
     description: |-
       This table records all the transactions of the Harmony blockchain.
-      
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - TX_HASH
+      - tx_gaps:
+          where: BLOCK_TIMESTAMP < CURRENT_DATE      
     columns:
       - name: block_timestamp
         description: The time when the block was mined.
