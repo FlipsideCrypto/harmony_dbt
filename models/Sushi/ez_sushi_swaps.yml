@@ -109,4 +109,13 @@ models:
       - name: LOG_ID
         tests:
           - not_null
+      - name: EVM_ORIGIN_FROM_ADDRESS
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_match_regex:
+              regex: 0[xX][0-9a-fA-F]+
+      - name: EVM_ORIGIN_TO_ADDRESS
+        tests:
+          - dbt_expectations.expect_column_values_to_match_regex:
+              regex: 0[xX][0-9a-fA-F]+
 
