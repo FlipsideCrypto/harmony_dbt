@@ -26,16 +26,28 @@ final as (
         l.tx_hash,
         l.evm_contract_address as pool_address,
         l.event_index,
+        l.evm_origin_from_address,
+        l.evm_origin_to_address,
+        l.native_origin_from_address,
+        l.native_origin_to_address,
         p.token0 as token0_address,
         t0.token_name as token0_name,
         t0.token_symbol as token0_symbol,
-        l.event_inputs:amount0In::integer as amount0In,
-        l.event_inputs:amount0Out::integer as amount0Out,
+        TRY_TO_NUMBER(
+            l.event_inputs :amount0In :: STRING
+        ) AS amount0In,
+        TRY_TO_NUMBER(
+            l.event_inputs :amount1In :: STRING
+        ) AS amount1In,
+        TRY_TO_NUMBER(
+            l.event_inputs :amount0Out :: STRING
+        ) AS amount0Out,
+        TRY_TO_NUMBER(
+            l.event_inputs :amount1Out :: STRING
+        ) AS amount1Out,
         p.token1 as token1_address,
         t1.token_name as token1_name,
         t1.token_symbol as token1_symbol,
-        l.event_inputs:amount1In::integer as amount1In,
-        l.event_inputs:amount1Out::integer as amount1Out,
         l.event_inputs:sender::string as from_address,
         l.event_inputs:to as to_address
     from logs as l

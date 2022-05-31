@@ -26,6 +26,10 @@ CASE
 se.from_address as sender,
 se.LOG_ID,
 se.event_index,
+se.evm_origin_from_address,
+se.evm_origin_to_address,
+se.native_origin_from_address,
+se.native_origin_to_address,
 CASE 
     WHEN se.amount0In <> 0 AND se.amount1In <> 0 THEN token1_address
     WHEN se.amount0In <> 0 THEN token0_address
@@ -135,6 +139,10 @@ wp.tx_hash,
 wp.pool_address,
 'Sushiswap' as platform,
 wp.event_index,
+wp.evm_origin_from_address,
+wp.evm_origin_to_address,
+wp.native_origin_from_address,
+wp.native_origin_to_address,
 wp.amount_in,
 wp.amount_out,
 wp.sender,
