@@ -1,33 +1,32 @@
-{% macro tx_gaps(
-        model
-    ) %}
+{% test tx_gaps( model, column_name, column_block, column_tx_count
+            ) %}
     WITH block_base AS (
         SELECT
-            block_id,
-            tx_count
+            {{column_block}},
+            {{column_tx_count}}
         FROM
             {{ ref('blocks') }}
     ),
     model_name AS (
         SELECT
-            block_id,
+            {{column_block}},
             COUNT(
-                DISTINCT tx_hash
+                DISTINCT {{column_name}}
             ) AS model_tx_count
         FROM
             {{ model }}
         GROUP BY
-            block_id
+            {{column_block}}
     )
 SELECT
-    block_base.block_id,
-    tx_count,
-    model_name.block_id,
+    block_base.{{column_block}},
+    {{column_tx_count}},
+    model_name.{{column_block}},
     model_tx_count
 FROM
     block_base
     LEFT JOIN model_name
-    ON block_base.block_id = model_name.block_id
+    ON block_base.{{column_block}} = model_name.{{column_block}}
 WHERE
-    tx_count <> model_tx_count
-{% endmacro %}
+    {{column_tx_count}} <> model_tx_count
+{% endtest %}
