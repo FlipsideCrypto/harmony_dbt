@@ -48,6 +48,16 @@ CASE
     WHEN se.amount0Out <> 0 THEN token0_symbol
     WHEN se.amount1Out <> 0 THEN token1_symbol
     END AS symbol_out,  
+CASE
+    WHEN amount0In <> 0
+    AND amount1In <> 0 THEN token1.decimals
+    WHEN amount0In <> 0 THEN token0.decimals
+    WHEN amount1In <> 0 THEN token1.decimals
+END AS decimals_in,
+CASE
+    WHEN amount0Out <> 0 THEN token0.decimals
+    WHEN amount1Out <> 0 THEN token1.decimals
+END AS decimals_out,
 se.TO_ADDRESS::string as tx_to,
 se.ingested_at
 from {{ ref('swaps') }} se --27,288,348
@@ -152,8 +162,16 @@ wp.token_out,
 wp.symbol_In,
 wp.symbol_out,  
 wp.tx_to,
-wp.amount_in * pIn.price as amount_in_usd,
-wp.amount_out * pOut.price as amount_out_usd,
+CASE
+    WHEN wp.decimals_in IS NOT NULL and wp.amount_in * pIn.price <= 5 * wp.amount_out * pOut.price and wp.amount_out * pOut.price <= 5 * wp.amount_in * pIn.price THEN wp.amount_in * pIn.price
+    WHEN wp.decimals_in IS NOT NULL and wp.decimals_out is null then wp.amount_in * pIn.price
+    ELSE NULL
+END AS amount_in_usd,
+CASE
+    WHEN wp.decimals_out IS NOT NULL and wp.amount_in * pIn.price <= 5 * wp.amount_out * pOut.price and wp.amount_out * pOut.price <= 5 * wp.amount_in * pIn.price THEN wp.amount_out * pOut.price
+    WHEN wp.decimals_out IS NOT NULL and wp.decimals_in is null then wp.amount_out * pOut.price
+    ELSE NULL
+END AS amount_out_usd,
 wp.ingested_at    
 from swap_without_prices wp
 left join Harmony_prices pIn
