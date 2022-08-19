@@ -1,26 +1,21 @@
-
 version: 2
 
 models:
-
   - name: txs
     description: |-
       This table records all the transactions of the Harmony blockchain.
     tests:
-      - dbt_utils.unique_combination_of_columns:
-          combination_of_columns:
-            - TX_HASH
       - tx_gaps:
-          where: BLOCK_TIMESTAMP < CURRENT_DATE      
+          column_block: block_number
+          column_tx_hash: tx_hash
+          where: BLOCK_TIMESTAMP < CURRENT_DATE
+
     columns:
       - name: block_timestamp
         description: The time when the block was mined.
         tests:
           - not_null
-          - dbt_expectations.expect_row_values_to_have_recent_data:
-              datepart: day
-              interval: 1
-        
+
       - name: ingested_at
         description: The timestamp for when the block was ingested.
         tests:
@@ -53,7 +48,7 @@ models:
         description: The Ethereum address of the receiver.
         tests:
           - not_null
-          
+
       - name: value
         description: The value transfered in ATTO format (a factor of 10^18).
         tests:
@@ -70,8 +65,13 @@ models:
         tests:
           - not_null
 
-      - name: gas
-        description: Gas provided by the sender.
+      - name: gas_limit
+        description: Gas provided by the sender, which could be different than actual gas used by the transaction.
+        tests:
+          - not_null
+
+      - name: gas_used
+        description: Gas used in during the transaction execution.
         tests:
           - not_null
 
@@ -90,4 +90,3 @@ models:
         description: Boolean representing whether the transaction is successful or not.
         tests:
           - not_null
-          

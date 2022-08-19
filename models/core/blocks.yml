@@ -1,17 +1,12 @@
-
 version: 2
 
 models:
   - name: blocks
-    description: 
-      This table records all the blocks of Harmony blockchain.
+    description: This table records all the blocks of Harmony blockchain.
     tests:
-      - dbt_utils.unique_combination_of_columns:
-          combination_of_columns:
-            - block_id
       - sequence_gaps:
           column_name: block_id
-          where: BLOCK_TIMESTAMP < CURRENT_DATE - 1
+          where: BLOCK_TIMESTAMP < CURRENT_DATE
 
     columns:
       - name: block_id
