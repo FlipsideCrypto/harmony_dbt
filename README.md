@@ -4,6 +4,30 @@ Curated SQL Views and Metrics for the Harmony Blockchain.
 
 What's Harmony? Learn more [here](https://www.harmony.one/)
 
+## Profile Set Up
+
+#### Use the following within profiles.yml 
+----
+
+```yml
+flow:
+  target: dev
+  outputs:
+    dev:
+      type: snowflake
+      account: <ACCOUNT>
+      role: <ROLE>
+      user: <USERNAME>
+      password: <PASSWORD>
+      region: <REGION>
+      database: Harmony_DEV
+      warehouse: <WAREHOUSE>
+      schema: dev
+      threads: 4
+      client_session_keep_alive: False
+      query_tag: <TAG>
+```
+
 ## Setup
 
 1. [PREREQUISITE] Download [Docker for Desktop](https://www.docker.com/products/docker-desktop).
