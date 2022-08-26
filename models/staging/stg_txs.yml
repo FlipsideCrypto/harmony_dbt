@@ -24,6 +24,9 @@ models:
               column_block: BLOCK_ID
               column_tx_count: tx_count
               where: BLOCK_TIMESTAMP < CURRENT_DATE
+              config:
+                severity: warn
+                error_if: ">78"
 
       - name: tx_block_index
         description: The index of the transaction within the block. Starts at 0.

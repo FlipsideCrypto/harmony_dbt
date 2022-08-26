@@ -12,6 +12,9 @@ models:
       - sequence_gaps:
           column_name: block_id
           where: BLOCK_TIMESTAMP < CURRENT_DATE - 1
+          config:
+            severity: warn
+            error_if: ">10"
 
     columns:
       - name: block_id
