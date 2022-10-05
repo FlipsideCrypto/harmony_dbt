@@ -46,24 +46,28 @@ models:
         description: Hash of the block (32 Bytes).
         tests:
           - unique
-          - not_null
+          - not_null:
+                enabled: false 
 
       - name: block_parent_hash
         description: Hash of the parent block (32 Bytes).
         tests:
-          - not_null
+          - not_null:
+               enabled: False
           - dbt_expectations.expect_column_values_to_match_regex:
               regex: 0[xX][0-9a-fA-F]+
 
       - name: gas_limit
         description: The maximum gas allowed in this block.
         tests:
-          - not_null
+          - not_null:
+              enabled: false
 
       - name: gas_used
         description: The total used gas by all transactions in this block.
         tests:
-          - not_null
+          - not_null:
+              enabled: false
 
       - name: miner
         description: The address of the beneficiary to whom the mining rewards were given.
@@ -87,14 +91,17 @@ models:
       - name: tx_count
         description: The number of transactions in the given block.
         tests:
-          - not_null
+          - not_null:
+              enabled: false
 
       - name: state_root
         description: The root hash that stores the entire state of the system - account balances, contract storage, contract code and account nonces are inside
         tests:
-          - not_null
+          - not_null:
+              enabled: false
 
       - name: receipts_root
         description: The root hash that stores receipts of all transactions included in the block.
         tests:
-          - not_null
+          - not_null:
+              enabled: false
