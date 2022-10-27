@@ -1,0 +1,27 @@
+
+version: 2
+
+models:
+  - name: core__fact_transfers
+    description: "Harmony transfer events."
+    columns:
+      - name: FACT_TRANSFERS_ID
+        description: "{{ doc('sk') }}"
+        tests:
+          - dbt_expectations.expect_column_to_exist
+      - name: LOG_ID
+        description: Log identifier composed of tx_hash-event_index.
+      - name: BLOCK_ID
+        description: The block ID.
+      - name: tx_hash
+        description: The transaction hash.
+      - name: BLOCK_TIMESTAMP
+        description: The time the block was minted.
+      - name: CONTRACT_ADDRESS
+        description: The address of the transferred token.
+      - name: FROM_ADDRESS
+        description: The address sent the token.
+      - name: TO_ADDRESS
+        description: The address received the token.       
+      - name: RAW_AMOUNT
+        description: The token's raw amount.

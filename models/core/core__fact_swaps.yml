@@ -1,0 +1,43 @@
+
+version: 2
+
+models:
+  - name: core__fact_swaps
+    description: "Harmony Swaps"
+    columns:
+      - name: FACT_SWAPS_ID
+        description: "{{ doc('sk') }}"
+        tests:
+          - dbt_expectations.expect_column_to_exist
+      - name: BLOCK_TIMESTAMP
+        description: When the trade was made.
+      - name: LOG_ID
+        description: The unique id.
+      - name: TX_HASH
+        description: The transaction hash.
+      - name: POOL_ADDRESS
+        description: The pool address that the swap was conducted in.
+      - name: TOKEN0_ADDRESS
+        description: The `token0` address.
+      - name: TOKEN0_NAME
+        description: The `token0` name.
+      - name: TOKEN0_SYMBOL
+        description: The `token0` symbol.
+      - name: AMOUNT0IN
+        description: The amount of `token0` that went into the swap.
+      - name: AMOUNT0OUT
+        description: The amount of `token0` that came out from the swap.
+      - name: TOKEN1_ADDRESS
+        description: The `token1` address.
+      - name: TOKEN1_NAME
+        description: The `token1` name.
+      - name: TOKEN1_SYMBOL
+        description: The `token1` symbol.
+      - name: AMOUNT1IN
+        description: The amount of `token1` that went into the swap.
+      - name: AMOUNT1OUT
+        description: The amount of `token` that came out from the swap.
+      - name: FROM_ADDRESS
+        description: The address that triggered the swap.
+      - name: TO_ADDRESS
+        description: The address that the out tokens go to.

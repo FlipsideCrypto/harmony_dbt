@@ -1,0 +1,19 @@
+
+version: 2
+models:
+  - name: core__dim_tokens
+    description: "Harmony Tokens"
+    columns:
+      - name: DIM_TOKENS_ID
+        description: "{{ doc('sk') }}"
+        tests:
+          - dbt_expectations.expect_column_to_exist
+      - name: TOKEN_ADDRESS
+        description: The token's `contract_address`.
+      - name: TOKEN_NAME
+        description: The token's name as read from the blockchain.
+      - name: TOKEN_SYMBOL
+        description: The token's symbol (e.g WONE) as read from the blockchain.
+      - name: DECIMALS
+        description: The token's decimals as read from the blockchain.
+

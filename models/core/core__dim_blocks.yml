@@ -1,0 +1,36 @@
+
+version: 2
+models:
+  - name: core__dim_blocks
+    description: This table records all the blocks of Harmony blockchain.
+    columns:
+      - name: DIM_BLOCK_ID
+        description: "{{ doc('sk') }}"
+        tests:
+          - dbt_expectations.expect_column_to_exist
+      - name: BLOCK_ID
+        description: The block number.
+      - name: BLOCK_TIMESTAMP
+        description: The timestamp for when the block was collated.
+      - name: BLOCK_HASH
+        description: Hash of the block (32 Bytes).
+      - name: BLOCK_PARENT_HASH
+        description: Hash of the parent block (32 Bytes).
+      - name: GAS_LIMIT
+        description: The maximum gas allowed in this block.
+      - name: GAS_USED
+        description: The total used gas by all transactions in this block.
+      - name: MINER
+        description: The address of the beneficiary to whom the mining rewards were given.
+      - name: NONCE
+        description: Hash of the generated proof-of-work (8 Bytes).
+      - name: SIZE
+        description: Integer the size of this block in bytes.
+      - name: TX_COUNT
+        description: The number of transactions in the given block.
+      - name: STATE_ROOT
+        description: The root hash that stores the entire state of the system - account balances, contract storage, contract code and account nonces are inside
+      - name: RECEIPTS_ROOT
+        description: The root hash that stores receipts of all transactions included in the block.
+      - name: _INSERTED_TIMESTAMP
+        description: The timestamp for when the block was ingested.
