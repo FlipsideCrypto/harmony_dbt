@@ -1,0 +1,42 @@
+
+version: 2
+models:
+  - name: core__fact_transactions
+    description: |-
+      This table records all the transactions of the Harmony blockchain.
+    columns:
+      - name: FACT_TRANSACTIONS_ID
+        description: "{{ doc('sk') }}"
+        tests:
+          - dbt_expectations.expect_column_to_exist
+      - name: BLOCK_TIMESTAMP
+        description: The time when the block was mined.
+      - name: NONCE
+        description: The number of transactions made by the sender prior to this one.
+      - name: INDEX
+        description: Integer of the transactions index position in the block. `null` when its pending.
+      - name: NATIVE_FROM_ADDRESS
+        description: Native Harmony address of the sender.
+      - name: NATIVE_TO_ADDRESS
+        description: Native Harmony address of the receiver.
+      - name: FROM_ADDRESS
+        description: The Ethereum address of the sender.
+      - name: TO_ADDRESS
+        description: The Ethereum address of the receiver.     
+      - name: VALUE
+        description: The value transfered in ATTO format (a factor of 10^18).
+      - name: BLOCK_NUMBER
+        description: Block number where this transaction was in. `null` when it's pending.
+      - name: BLOCK_HASH
+        description: Hash of the block where this transaction was in. `null` when it's pending.
+      - name: GAS_PRICE
+        description: Gas price provided by the sender.
+      - name: GAS
+        description: Gas provided by the sender.
+      - name: TX_HASH
+        description: The Ethereum hash of the transaction which is the primary key for this table.
+      - name: DATA
+        description: Bytecode of the data sent along with the transaction.
+      - name: STATUS
+        description: Boolean representing whether the transaction is successful or not.
+

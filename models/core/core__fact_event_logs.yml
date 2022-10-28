@@ -1,0 +1,37 @@
+
+version: 2
+
+models:
+  - name: core__fact_event_logs
+    description: "Harmony Logs"
+    columns:
+      - name: FACT_EVENT_LOGS_ID
+        description: "{{ doc('sk') }}"
+        tests:
+          - dbt_expectations.expect_column_to_exist
+      - name: LOG_ID
+        description: Log identifier composed of tx_hash-event_index
+      - name: BLOCK_ID
+        description: The block number.
+      - name: BLOCK_TIMESTAMP
+        description: The timestamp for when the block was collated.
+      - name: TX_HASH
+        description: Hash of the transaction (32 Bytes).
+      - name: EVENT_INDEX
+        description: Integer of of the log position in the block.
+      - name: NATIVE_CONTRACT_ADDRESS
+        description: Native Harmony address of the contract.
+      - name: EVM_CONTRACT_ADDRESS
+        description: EVM address of the contract.
+      - name: CONTRACT_NAME
+        description: Name of the contract called.
+      - name: EVENT_NAME
+        description: Name of the event executed.
+      - name: EVENT_INPUTS
+        description: Parameter inputs for the event called.
+      - name: TOPICS
+        description: Array of 0 to 4 32 Bytes data of indexed log arguments.
+      - name: DATA
+        description: Contains the non-indexed arguments of the log.
+      - name: EVENT_REMOVED
+        description: True when the log was removed, due to a chain reorganization. false if its a valid log.
